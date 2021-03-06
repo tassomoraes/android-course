@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/image1"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/um"
         app:layout_constraintEnd_toStartOf="@+id/image2"
@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/image2"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/dois"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,8 +32,8 @@
 
     <ImageView
         android:id="@+id/image3"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/tres"
         app:layout_constraintEnd_toStartOf="@+id/image4"
@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/image4"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/quatro"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +54,8 @@
 
     <ImageView
         android:id="@+id/image5"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/cinco"
         app:layout_constraintEnd_toStartOf="@+id/image6"
@@ -65,8 +65,8 @@
 
     <ImageView
         android:id="@+id/image6"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/seis"
         app:layout_constraintEnd_toEndOf="parent"
