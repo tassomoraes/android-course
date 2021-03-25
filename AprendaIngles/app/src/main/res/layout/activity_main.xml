@@ -30,7 +30,7 @@
         app:stl_underlineThickness="1dp"
 
         app:stl_dividerColor="@color/colorPrimaryDark"
-        app:stl_dividerThickness="1dp"
+        app:stl_dividerThickness="0dp"
 
         app:stl_defaultTabBackground="?attr/selectableItemBackground"
         app:stl_defaultTabTextAllCaps="true"
