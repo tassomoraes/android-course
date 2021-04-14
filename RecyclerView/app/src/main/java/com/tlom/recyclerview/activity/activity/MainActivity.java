@@ -21,6 +21,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    //O ReciclerView tem 3 componetes principais:
+    //  1 - LayoutMeneger: utilizado pra montar o reclycerView
+    //  2 - Adapter: adapta os dados para o RecyclerVIew, estrutura os dados
+    //  3 - Dados
+    // O RecyclerView é chamado assim pois ele recicla as view que são axibidas na tela
+    //deixando assim a lista de itens mais fluida
+
     private RecyclerView recyclerView;
     private List<Filme> listaFilmes = new ArrayList<>();
 
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         //Configurar adapter
+        // o adapter vai pegar os dados, montar um view e retorna pra cada item do RecyclerView
         Adapter adapter = new Adapter( listaFilmes );
 
         //Listagem de filmes
@@ -40,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager( layoutManager );
-        recyclerView.setHasFixedSize( true ); //otimizando
+        recyclerView.setHasFixedSize( true ); //otimizando: tamanho do RecyclerView fixo
         recyclerView.addItemDecoration( new DividerItemDecoration(this, LinearLayout.VERTICAL)); //adicionando linhas
         recyclerView.setAdapter( adapter );
 
