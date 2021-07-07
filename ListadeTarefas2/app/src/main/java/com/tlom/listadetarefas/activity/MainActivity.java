@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(View view, int position) {
 
+                                // Recupera tarefa para edição
+                                Tarefa tarefaSelecionada = listaTarefas.get( position );
+
+                                // Envia tarefa para tela adicionar tarefa
+                                Intent intent = new Intent( MainActivity.this, AdicionarTarefaActivity.class);
+                                intent.putExtra("tarefaSelecionada", tarefaSelecionada);
+
+                                startActivity( intent );
+
                             }
 
                             @Override
