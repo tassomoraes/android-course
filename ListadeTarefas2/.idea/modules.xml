@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Lista de Tarefas.iml" filepath="$PROJECT_DIR$/Lista de Tarefas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Lista_de_Tarefas.iml" filepath="$PROJECT_DIR$/.idea/modules/Lista_de_Tarefas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Lista_de_Tarefas.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Lista_de_Tarefas.app.iml" />
     </modules>
   </component>
 </project>
