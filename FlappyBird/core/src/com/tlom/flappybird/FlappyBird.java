@@ -13,9 +13,12 @@ public class FlappyBird extends ApplicationAdapter {
 	private Texture fundo;	// plano de fundo
 
 	// Atributos de configuração
-	private float variacao = 0;
 	private int largura_tela;
 	private int altura_tela;
+
+	private float variacao = 0;
+	private int velocidade_queda = 0;
+	private int posicao_inicial_vertical;
 
 	// Para inicializar o jogo
 	@Override
@@ -32,6 +35,8 @@ public class FlappyBird extends ApplicationAdapter {
 		largura_tela = Gdx.graphics.getWidth();
 		altura_tela = Gdx.graphics.getHeight();
 
+		posicao_inicial_vertical = altura_tela / 2;
+
 	}
 
 	// Para as animações
@@ -40,14 +45,19 @@ public class FlappyBird extends ApplicationAdapter {
 
 		// para o passaro se mover na tela
 		variacao += Gdx.graphics.getDeltaTime() * 10;	// pega o tempo entre um render e outra
+		velocidade_queda++;
+
 		if(variacao > 2) variacao = 0;
+
+		if(posicao_inicial_vertical > 0)
+			posicao_inicial_vertical -= velocidade_queda;
 
 		// para exibir alguma textura
 		batch.begin();
 
 		batch.draw(fundo, 0,0, largura_tela, altura_tela);
 		// colocar textura passaro na posição x,y
-		batch.draw(passaros[(int)variacao], 30, altura_tela / 2);
+		batch.draw(passaros[(int)variacao], 30, posicao_inicial_vertical);
 
 		batch.end();
 
