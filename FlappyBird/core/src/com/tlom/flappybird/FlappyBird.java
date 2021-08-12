@@ -9,20 +9,23 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class FlappyBird extends ApplicationAdapter {
 
 	private SpriteBatch batch; 	// classe para criar animações
-	private Texture passaro;
+	private Texture[] passaros;
 	private Texture fundo;	// plano de fundo
 
 	// Atributos de configuração
-	private int movimento = 0;
+	private float variacao = 0;
 	private int largura_tela;
-	private int altura_tela
+	private int altura_tela;
 
 	// Para inicializar o jogo
 	@Override
 	public void create () {
 
 		batch = new SpriteBatch();
-		passaro = new Texture("passaro1.png");
+		passaros = new Texture[3];
+		passaros[0] = new Texture("passaro1.png");
+		passaros[1] = new Texture("passaro2.png");
+		passaros[2] = new Texture("passaro3.png");
 		fundo = new Texture("fundo.png");
 
 		// getWidth recupera a largura da tela e getHight peda a altura
@@ -36,14 +39,15 @@ public class FlappyBird extends ApplicationAdapter {
 	public void render () {
 
 		// para o passaro se mover na tela
-		movimento++;
+		variacao += Gdx.graphics.getDeltaTime() * 10;	// pega o tempo entre um render e outra
+		if(variacao > 2) variacao = 0;
 
 		// para exibir alguma textura
 		batch.begin();
 
 		batch.draw(fundo, 0,0, largura_tela, altura_tela);
 		// colocar textura passaro na posição x,y
-		batch.draw(passaro, movimento, 400);
+		batch.draw(passaros[(int)variacao], 30, altura_tela / 2);
 
 		batch.end();
 
