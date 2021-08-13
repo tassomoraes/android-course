@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.Random;
+
 public class FlappyBird extends ApplicationAdapter {
 
 	private SpriteBatch batch; 	// classe para criar animações
@@ -13,6 +15,7 @@ public class FlappyBird extends ApplicationAdapter {
 	private Texture fundo;	// plano de fundo
 	private Texture cano_baixo;
 	private Texture cano_topo;
+	private Random numero_randomico;
 
 	// Atributos de configuração
 	private int largura_tela;
@@ -22,10 +25,15 @@ public class FlappyBird extends ApplicationAdapter {
 	private float velocidade_queda = 0;
 	private float posicao_inicial_vertical;
 	private float posicao_cano_movimento_horizontal;
+	private float espaço_entre_canos;
+	private float delta_time;
+	private float altura_entre_canos_randomica;
 
 	// Para inicializar o jogo
 	@Override
 	public void create () {
+
+		numero_randomico = new Random();
 
 		batch = new SpriteBatch();
 		passaros = new Texture[3];
@@ -44,6 +52,7 @@ public class FlappyBird extends ApplicationAdapter {
 		posicao_inicial_vertical = altura_tela / 2;
 
 		posicao_cano_movimento_horizontal = largura_tela;
+		espaço_entre_canos = 200;
 
 	}
 
@@ -51,8 +60,11 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+		delta_time = Gdx.graphics.getDeltaTime();
+
 		// para o passaro se mover na tela
-		variacao += Gdx.graphics.getDeltaTime() * 10;	// pega o tempo entre um render e outra
+		variacao += delta_time * 10;	// pega o tempo entre um render e outra
+		posicao_cano_movimento_horizontal -= delta_time * 200;
 		velocidade_queda++;
 
 		if(variacao > 2) variacao = 0;
@@ -62,6 +74,12 @@ public class FlappyBird extends ApplicationAdapter {
 			velocidade_queda = -15;
 		}
 
+		// reniciando posição do cano verificando se saiu inteiramente da tela
+		if ( posicao_cano_movimento_horizontal < -cano_topo.getWidth()) {
+			posicao_cano_movimento_horizontal = largura_tela;
+			altura_entre_canos_randomica = numero_randomico.nextInt(800) - 300;
+		}
+
 		if(posicao_inicial_vertical > 0 || posicao_inicial_vertical < 0)
 			posicao_inicial_vertical -= velocidade_queda;
 
@@ -69,8 +87,10 @@ public class FlappyBird extends ApplicationAdapter {
 		batch.begin();
 
 		batch.draw(fundo, 0,0, largura_tela, altura_tela);
+		batch.draw(cano_topo, posicao_cano_movimento_horizontal, altura_tela/2 + espaço_entre_canos/2 + altura_entre_canos_randomica);
+		batch.draw(cano_baixo, posicao_cano_movimento_horizontal, altura_tela/2 - cano_baixo.getHeight() - espaço_entre_canos/2 + altura_entre_canos_randomica);
 		// colocar textura passaro na posição x,y
-		batch.draw(passaros[(int)variacao], 30, posicao_inicial_vertical);
+		batch.draw(passaros[(int)variacao], 120, posicao_inicial_vertical);
 
 		batch.end();
 
