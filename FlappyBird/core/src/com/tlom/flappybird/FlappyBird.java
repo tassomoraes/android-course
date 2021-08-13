@@ -28,6 +28,13 @@ public class FlappyBird extends ApplicationAdapter {
 	private float espaço_entre_canos;
 	private float delta_time;
 	private float altura_entre_canos_randomica;
+	private float movimentoY_cano_topo;
+	private float movimentoY_cano_baixo;
+
+	private double largura_passaro;
+	private double altura_passaro;
+	private double largura_cano;
+	private double altura_cano;
 
 	// Para inicializar o jogo
 	@Override
@@ -86,11 +93,20 @@ public class FlappyBird extends ApplicationAdapter {
 		// para exibir alguma textura
 		batch.begin();
 
+		// colocar textura na posição x,y
 		batch.draw(fundo, 0,0, largura_tela, altura_tela);
-		batch.draw(cano_topo, posicao_cano_movimento_horizontal, altura_tela/2 + espaço_entre_canos/2 + altura_entre_canos_randomica);
-		batch.draw(cano_baixo, posicao_cano_movimento_horizontal, altura_tela/2 - cano_baixo.getHeight() - espaço_entre_canos/2 + altura_entre_canos_randomica);
-		// colocar textura passaro na posição x,y
-		batch.draw(passaros[(int)variacao], 120, posicao_inicial_vertical);
+		// redimencionando canos
+		largura_cano = cano_topo.getWidth()*1.8;
+		altura_cano = cano_topo.getHeight()*1.8;
+		// movimento do cano
+		movimentoY_cano_topo = altura_tela/2 + espaço_entre_canos/2 + altura_entre_canos_randomica;
+		movimentoY_cano_baixo = altura_tela/2 - cano_baixo.getHeight() - espaço_entre_canos/2 + altura_entre_canos_randomica;
+		batch.draw(cano_topo, posicao_cano_movimento_horizontal, movimentoY_cano_topo, (float)largura_cano, (float)altura_cano);
+		batch.draw(cano_baixo, posicao_cano_movimento_horizontal, movimentoY_cano_baixo, (float)largura_cano, (float)altura_cano);
+
+		largura_passaro = passaros[(int)variacao].getWidth()*1.8;
+		altura_passaro = passaros[(int)variacao].getHeight()*1.8;
+		batch.draw(passaros[(int)variacao], 120, posicao_inicial_vertical, (float)largura_passaro, (float)altura_passaro);
 
 		batch.end();
 
