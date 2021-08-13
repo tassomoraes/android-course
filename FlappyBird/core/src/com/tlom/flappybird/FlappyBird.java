@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Random;
@@ -19,6 +23,10 @@ public class FlappyBird extends ApplicationAdapter {
 	private Texture cano_topo;
 	private Random numero_randomico;
 	private BitmapFont fonte;
+	private Circle passaro_circulo;
+	private Rectangle retangulo_cano_topo;
+	private Rectangle retangulo_cano_baixo;
+	//private ShapeRenderer shape;
 
 	// Atributos de configuração
 	private int largura_tela;
@@ -48,6 +56,10 @@ public class FlappyBird extends ApplicationAdapter {
 	public void create () {
 
 		numero_randomico = new Random();
+		passaro_circulo = new Circle();
+		retangulo_cano_topo = new Rectangle();
+		retangulo_cano_baixo = new Rectangle();
+		//shape = new ShapeRenderer();
 		fonte = new BitmapFont();
 		fonte.setColor(Color.WHITE);
 		fonte.getData().setScale(10);
@@ -107,7 +119,7 @@ public class FlappyBird extends ApplicationAdapter {
 			// reniciando posição do cano verificando se saiu inteiramente da tela
 			if (posicao_cano_movimento_horizontal < -largura_cano) {
 				posicao_cano_movimento_horizontal = largura_tela;
-				altura_entre_canos_randomica = numero_randomico.nextInt(600) - 300;
+				altura_entre_canos_randomica = numero_randomico.nextInt(800) - 200;
 				marcou_ponto = false;
 			}
 
@@ -140,6 +152,39 @@ public class FlappyBird extends ApplicationAdapter {
 		fonte.draw(batch, String.valueOf(pontuacao), largura_tela/2, altura_tela-100);
 
 		batch.end();
+
+		passaro_circulo.set(
+				120 + (float)largura_passaro/2,
+				posicao_inicial_vertical + (float)altura_passaro/2,
+				(float)largura_passaro/2
+		);
+		retangulo_cano_topo.set(
+				posicao_cano_movimento_horizontal,
+				movimentoY_cano_topo,
+				(float)largura_cano, (float)altura_cano
+		);
+		retangulo_cano_baixo.set(
+				posicao_cano_movimento_horizontal,
+				movimentoY_cano_baixo,
+				(float)largura_cano, (float)altura_cano
+		);
+
+		// Desenha formas
+		/*
+		shape.begin(ShapeRenderer.ShapeType.Filled);
+
+		shape.circle(passaro_circulo.x, passaro_circulo.y, passaro_circulo.radius);
+		shape.rect(retangulo_cano_topo.x, retangulo_cano_topo.y, retangulo_cano_topo.width, retangulo_cano_topo.height);
+		shape.rect(retangulo_cano_baixo.x, retangulo_cano_baixo.y, retangulo_cano_baixo.width, retangulo_cano_baixo.height);
+		shape.setColor(Color.RED);
+
+		shape.end();
+		*/
+
+		// Colisões
+		if(Intersector.overlaps(passaro_circulo, retangulo_cano_topo) || Intersector.overlaps(passaro_circulo, retangulo_cano_baixo)){
+
+		}
 
 	}
 
