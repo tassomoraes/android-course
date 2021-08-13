@@ -20,6 +20,7 @@ public class FlappyBird extends ApplicationAdapter {
 	// Atributos de configuração
 	private int largura_tela;
 	private int altura_tela;
+	private int estatado_jogo = 0; // 0 > não iniciado	1 > iniciado
 
 	private float variacao = 0;
 	private float velocidade_queda = 0;
@@ -56,10 +57,10 @@ public class FlappyBird extends ApplicationAdapter {
 		largura_tela = Gdx.graphics.getWidth();
 		altura_tela = Gdx.graphics.getHeight();
 
-		posicao_inicial_vertical = altura_tela / 2;
+		posicao_inicial_vertical = altura_tela/2;
 
 		posicao_cano_movimento_horizontal = largura_tela;
-		espaço_entre_canos = 200;
+		espaço_entre_canos = 900;
 
 	}
 
@@ -67,29 +68,34 @@ public class FlappyBird extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		delta_time = Gdx.graphics.getDeltaTime();
 
-		// para o passaro se mover na tela
-		variacao += delta_time * 10;	// pega o tempo entre um render e outra
-		posicao_cano_movimento_horizontal -= delta_time * 200;
-		velocidade_queda++;
+		delta_time = Gdx.graphics.getDeltaTime();    // pega o tempo entre um render e outra
+		variacao += delta_time * 10; // para o passaro se mover na tela
+		if (variacao > 2) variacao = 0;
 
-		if(variacao > 2) variacao = 0;
+		if ( estatado_jogo == 0 ){
+			if (Gdx.input.justTouched()){
+				estatado_jogo = 1;
+			}
+		}else {
 
-		// evento de click
-		if( Gdx.input.justTouched() ){
-			velocidade_queda = -15;
+			posicao_cano_movimento_horizontal -= delta_time * 200;
+			velocidade_queda++;
+
+			// evento de click
+			if (Gdx.input.justTouched()) {
+				velocidade_queda = -15;
+			}
+
+			// reniciando posição do cano verificando se saiu inteiramente da tela
+			if (posicao_cano_movimento_horizontal < -cano_topo.getWidth()) {
+				posicao_cano_movimento_horizontal = largura_tela;
+				altura_entre_canos_randomica = numero_randomico.nextInt(600) - 300;
+			}
+
+			if (posicao_inicial_vertical > 0 || posicao_inicial_vertical < 0)
+				posicao_inicial_vertical -= velocidade_queda;
 		}
-
-		// reniciando posição do cano verificando se saiu inteiramente da tela
-		if ( posicao_cano_movimento_horizontal < -cano_topo.getWidth()) {
-			posicao_cano_movimento_horizontal = largura_tela;
-			altura_entre_canos_randomica = numero_randomico.nextInt(800) - 300;
-		}
-
-		if(posicao_inicial_vertical > 0 || posicao_inicial_vertical < 0)
-			posicao_inicial_vertical -= velocidade_queda;
-
 		// para exibir alguma textura
 		batch.begin();
 
