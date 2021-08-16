@@ -158,7 +158,7 @@ public class FlappyBird extends ApplicationAdapter {
 					posicao_inicial_vertical = altura_tela / 2;
 					posicao_cano_movimento_horizontal = largura_tela;
 				}
-				
+
 			}
 
 		}
@@ -217,7 +217,8 @@ public class FlappyBird extends ApplicationAdapter {
 		*/
 
 		// Colisões
-		if(Intersector.overlaps(passaro_circulo, retangulo_cano_topo) || Intersector.overlaps(passaro_circulo, retangulo_cano_baixo)){
+		if(Intersector.overlaps(passaro_circulo, retangulo_cano_topo) || Intersector.overlaps(passaro_circulo, retangulo_cano_baixo)
+			|| posicao_inicial_vertical <= 0 || posicao_inicial_vertical >= altura_tela){
 			estatado_jogo = 2;
 		}
 
