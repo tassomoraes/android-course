@@ -124,6 +124,21 @@ public class FlappyBird extends ApplicationAdapter {
 		largura_game_over = game_over.getWidth();
 		altura_game_over = game_over.getHeight();
 
+	}
+
+	// Para as animações
+	@Override
+	public void render () {
+
+		camera.update();
+
+		// Limpar os frames anteriores para que o jogo utilize menos memória
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+		delta_time = Gdx.graphics.getDeltaTime();    // pega o tempo entre um render e outra
+		variacao += delta_time * 10; // para o passaro se mover na tela
+		if (variacao > 2) variacao = 0; // o passaro só possue 3 posições 0, 1 e 2
+
 		if ( estatado_jogo == 0 ){
 			if (Gdx.input.justTouched()){
 				estatado_jogo = 1;
