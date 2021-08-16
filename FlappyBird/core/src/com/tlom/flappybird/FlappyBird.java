@@ -171,14 +171,15 @@ public class FlappyBird extends ApplicationAdapter {
 						marcou_ponto = true;
 					}
 				}
-			}else{
-
+			}else{	//Game Over
+				//Zera os valores padrões
 				if ( Gdx.input.justTouched() ) {
 					estatado_jogo = 0;
 					pontuacao = 0;
 					velocidade_queda = 0;
 					posicao_inicial_vertical = altura_tela / 2;
 					posicao_cano_movimento_horizontal = largura_tela;
+					marcou_ponto = false;
 				}
 
 			}
