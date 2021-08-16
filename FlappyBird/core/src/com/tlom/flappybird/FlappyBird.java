@@ -3,6 +3,7 @@ package com.tlom.flappybird;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -62,8 +63,8 @@ public class FlappyBird extends ApplicationAdapter {
 	// Câmera
 	private OrthographicCamera camera;
 	private Viewport viewport;
-	private final float VIRTUAL_WIDTH = 768;	// resolução fixa
-	private final float VIRTUAL_HEIGHT = 1024;
+	private final float VIRTUAL_WIDTH = 600;	// resolução fixa
+	private final float VIRTUAL_HEIGHT = 800;
 
 	// Para inicializar o jogo
 	@Override
@@ -76,11 +77,11 @@ public class FlappyBird extends ApplicationAdapter {
 		//shape = new ShapeRenderer();
 		fonte = new BitmapFont();
 		fonte.setColor(Color.WHITE);
-		fonte.getData().setScale(6);
+		fonte.getData().setScale(5);
 
 		menssagem = new BitmapFont();
 		menssagem.setColor(Color.WHITE);
-		menssagem.getData().setScale(3);
+		menssagem.getData().setScale(2);
 
 		batch = new SpriteBatch();
 
@@ -111,20 +112,8 @@ public class FlappyBird extends ApplicationAdapter {
 		posicao_inicial_vertical = altura_tela/2;
 
 		posicao_cano_movimento_horizontal = largura_tela;
-		espaço_entre_canos = 200;
+		espaço_entre_canos = 210;
 
-	}
-
-	// Para as animações
-	@Override
-	public void render () {
-
-
-		delta_time = Gdx.graphics.getDeltaTime();    // pega o tempo entre um render e outra
-		variacao += delta_time * 10; // para o passaro se mover na tela
-		if (variacao > 2) variacao = 0;
-
-		// redimencionando figuras
 		// canos
 		largura_cano = cano_topo.getWidth();
 		altura_cano = cano_topo.getHeight();
@@ -157,7 +146,7 @@ public class FlappyBird extends ApplicationAdapter {
 				// reniciando posição do cano verificando se saiu inteiramente da tela
 				if (posicao_cano_movimento_horizontal < -largura_cano) {
 					posicao_cano_movimento_horizontal = largura_tela;
-					altura_entre_canos_randomica = numero_randomico.nextInt(200) - 100;
+					altura_entre_canos_randomica = numero_randomico.nextInt(400) - 200;
 					marcou_ponto = false;
 				}
 
@@ -190,29 +179,26 @@ public class FlappyBird extends ApplicationAdapter {
 
 		// colocar textura na posição x,y
 		batch.draw(fundo, 0,0, largura_tela, altura_tela);
-
 		// movimento do cano
 		movimentoY_cano_topo = altura_tela/2 + espaço_entre_canos/2 + altura_entre_canos_randomica;
 		movimentoY_cano_baixo = altura_tela/2 - cano_baixo.getHeight() - espaço_entre_canos/2 + altura_entre_canos_randomica;
-		batch.draw(cano_topo, posicao_cano_movimento_horizontal, movimentoY_cano_topo, largura_cano, altura_cano);
-		batch.draw(cano_baixo, posicao_cano_movimento_horizontal, movimentoY_cano_baixo, largura_cano, altura_cano);
-
+		batch.draw(cano_topo, posicao_cano_movimento_horizontal, movimentoY_cano_topo);
+		batch.draw(cano_baixo, posicao_cano_movimento_horizontal, movimentoY_cano_baixo);
 		// movimento passaro
-		batch.draw(passaros[(int)variacao], 120, posicao_inicial_vertical, largura_passaro, altura_passaro);
-
+		batch.draw(passaros[(int)variacao], 120, posicao_inicial_vertical);
 		// potuação
-		fonte.draw(batch, String.valueOf(pontuacao), largura_tela/2, altura_tela-100);
+		fonte.draw(batch, String.valueOf(pontuacao), largura_tela/2, altura_tela-50);
 
 		// Game Over
 		if(	estatado_jogo == 2 ) {
-			batch.draw(game_over, largura_tela / 2 - largura_game_over/2, altura_tela / 2, largura_game_over, altura_game_over);
-			menssagem.draw(batch,"Toque para reiniciar!", largura_tela/2 - 200, altura_tela/2 - altura_game_over/2);
+			menssagem.draw(batch,"Toque para reiniciar!", largura_tela/2 - 130, altura_tela/2 - altura_game_over/2);
+			batch.draw(game_over, largura_tela / 2 - largura_game_over/2, altura_tela / 2	);
 		}
 
 		batch.end();
 
 		passaro_circulo.set(
-				120 + (float)largura_passaro/2,
+				120 + largura_passaro/2,
 				posicao_inicial_vertical + altura_passaro/2,
 				largura_passaro/2
 		);
