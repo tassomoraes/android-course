@@ -151,6 +151,14 @@ public class FlappyBird extends ApplicationAdapter {
 				}
 			}else{
 
+				if ( Gdx.input.justTouched() ) {
+					estatado_jogo = 0;
+					pontuacao = 0;
+					velocidade_queda = 0;
+					posicao_inicial_vertical = altura_tela / 2;
+					posicao_cano_movimento_horizontal = largura_tela;
+				}
+				
 			}
 
 		}
