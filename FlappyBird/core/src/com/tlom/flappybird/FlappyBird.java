@@ -63,8 +63,8 @@ public class FlappyBird extends ApplicationAdapter {
 	// Câmera
 	private OrthographicCamera camera;
 	private Viewport viewport;
-	private final float VIRTUAL_WIDTH = 600;	// resolução fixa
-	private final float VIRTUAL_HEIGHT = 800;
+	private final float VIRTUAL_WIDTH = 768;	// resolução fixa
+	private final float VIRTUAL_HEIGHT = 1024;	// outra opção é 600x800
 
 	// Para inicializar o jogo
 	@Override
@@ -102,8 +102,8 @@ public class FlappyBird extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		//posicionando a cêmera
 		camera.position.set(VIRTUAL_WIDTH/2, VIRTUAL_HEIGHT/2, 0);
-		//viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
-		viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);	// largura, altura, e cêmera
+		viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+		//viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);	// largura, altura, e cêmera
 
 		// getWidth recupera a largura da tela e getHight peda a altura
 		largura_tela = VIRTUAL_WIDTH;
@@ -151,7 +151,7 @@ public class FlappyBird extends ApplicationAdapter {
 
 			if ( estatado_jogo == 1 ){
 
-				posicao_cano_movimento_horizontal -= delta_time * 200;
+				posicao_cano_movimento_horizontal -= delta_time * 200+(pontuacao/10);	// velocidade dos canos almenta de acordo com a pontuação
 
 				// evento de click
 				if (Gdx.input.justTouched()) {
