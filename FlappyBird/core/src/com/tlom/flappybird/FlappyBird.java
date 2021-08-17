@@ -47,6 +47,7 @@ public class FlappyBird extends ApplicationAdapter {
 	private float velocidade_queda = 0;
 	private float posicao_inicial_vertical;
 	private float posicao_cano_movimento_horizontal;
+	private float velocidade_canos;
 	private float espaço_entre_canos;
 	private float delta_time;
 	private float altura_entre_canos_randomica;
@@ -151,7 +152,8 @@ public class FlappyBird extends ApplicationAdapter {
 
 			if ( estatado_jogo == 1 ){
 
-				posicao_cano_movimento_horizontal -= delta_time * 200+(pontuacao/10);	// velocidade dos canos almenta de acordo com a pontuação
+				if ( pontuacao < 200)	velocidade_canos = delta_time * 200+(pontuacao/20); // velocidade dos canos almenta de acordo com a pontuação
+				posicao_cano_movimento_horizontal -= velocidade_canos;
 
 				// evento de click
 				if (Gdx.input.justTouched()) {
