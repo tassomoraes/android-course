@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,13 +28,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* IDENTIFICADOR ÚNICO */
+        /* APLICANDO FILTROS */
+        DatabaseReference usuarios = referencia.child("usuarios");
+
+        //DatabaseReference usuarioPesquisa = usuarios.child("-MhPX0yJfbEX-w4RsUs4");
+        //Query usuarioPesquisa = usuarios.orderByChild("nome").equalTo("Tasso");
+        //Query usuarioPesquisa = usuarios.orderByKey().limitToFirst(2); //ordena por chave e só pega o 2 primeiros itens
+        //Query usuarioPesquisa = usuarios.orderByKey().limitToLast(2);   // pega os 2 ultlimos itens da lista
+
+        /* Menos ou igual (>=) */
+        //Query usuarioPesquisa = usuarios.orderByChild("idade").startAt(29);
+        /* Menor ou igual (<=) */
+        //Query usuarioPesquisa = usuarios.orderByChild("idade").endAt(28);
+        /* Menos ou igual (>=) */
+        //Query usuarioPesquisa = usuarios.orderByChild("idade").startAt(28).endAt(29);
+
+        /* Filtrando por texto */
+        Query usuarioPesquisa = usuarios.orderByChild("nome").startAt("R").endAt("R" + "\uf8ff");
+
+        usuarioPesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                /*Usuario dadosUsuario = snapshot.getValue( Usuario.class );  // quando se passa uma classe o snapshot retorna um objeto da classe
+                Log.i("Dados usuario: ", "nome: " + dadosUsuario.getNome());*/
+                Log.i("Dados usuario: ", snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        /* IDENTIFICADOR ÚNICO /
         DatabaseReference usuarios = referencia.child("usuarios");
 
         Usuario usuario = new Usuario();
-        usuario.setNome("Tasso");
-        usuario.setSobrenome("Moraes");
-        usuario.setIdade(28);
+        usuario.setNome("Arthur");
+        usuario.setSobrenome("Leblanc");
+        usuario.setIdade(29);
 
         usuarios.push().setValue( usuario );
 
