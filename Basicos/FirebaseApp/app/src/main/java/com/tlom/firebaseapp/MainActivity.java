@@ -27,11 +27,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* IDENTIFICADOR ÚNICO */
+        DatabaseReference usuarios = referencia.child("usuarios");
+
+        Usuario usuario = new Usuario();
+        usuario.setNome("Tasso");
+        usuario.setSobrenome("Moraes");
+        usuario.setIdade(28);
+
+        usuarios.push().setValue( usuario );
+
         /*DESLOGAR USUÁRIO/
         usuario.signOut();
         */
 
-        /*LOGAR USUÁRIO*/
+        /*LOGAR USUÁRIO/
         usuario.signInWithEmailAndPassword(
                 "prysccyllaregis@gmail.com", "pry1234")
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
