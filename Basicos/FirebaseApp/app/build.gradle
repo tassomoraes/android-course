@@ -27,7 +27,19 @@ android {
     }
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.3.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    //RealTime Database
+    implementation 'com.google.firebase:firebase-database:11.0.4'
+    //Autenticação
+    implementation 'com.google.firebase:firebase-auth:11.0.4'
+
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -36,3 +48,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
